@@ -1,0 +1,10 @@
+{
+  "/admin-api": {
+    "target": "http://localhost:8300",
+    "pathRewrite": { "^/admin-api": "/admin" },
+    "headers": { "x-admin-key": "dev-admin-key" }
+  },
+  "/v1": {
+    "target": "http://localhost:8300"
+  }
+}

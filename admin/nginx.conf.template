@@ -1,0 +1,25 @@
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location /admin-api/ {
+        proxy_pass ${GATEWAY_URL}/admin/;
+        proxy_set_header x-admin-key "${ADMIN_KEY}";
+        proxy_set_header Host $host;
+    }
+
+    location /v1/ {
+        proxy_pass ${GATEWAY_URL}/v1/;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 300s;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
